@@ -11,6 +11,7 @@ import java.util.List;
 
 @Route("registered-exams")
 public class RegisteredExamsView extends VerticalLayout {
+
     private final ExamService examService;
 
     @Autowired
