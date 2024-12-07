@@ -18,7 +18,16 @@ public class ExamService {
         }
     }
 
+    public String dropExam(String examName) {
+        if (registeredExams.contains(examName)) {
+            registeredExams.remove(examName);
+            return "Sikeresen leadta a vizsgát: " + examName;
+        } else {
+            return "Ez a vizsga nincs felvéve: " + examName;
+        }
+    }
+
     public List<String> getRegisteredExams() {
-        return registeredExams;
+        return new ArrayList<>(registeredExams);
     }
 }
