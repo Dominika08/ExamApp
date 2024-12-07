@@ -21,10 +21,10 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      # 3. Docker image buildelése
+      # 3. Docker image buildelése a 'docker/' mappából, ahol a Dockerfile található
       - name: Build Docker Image
         run: |
-          docker build -t examapp .
+          docker build -t examapp ./docker
 
       # 4. Docker container futtatása
       - name: Run Docker Container
