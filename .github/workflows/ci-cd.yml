@@ -1,0 +1,38 @@
+name: Simple CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Kód letöltése
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 2. JDK 17 beállítása
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      # 3. Maven build és tesztelés (buildelés, unit tesztek futtatása)
+      - name: Build and Test
+        run: ./mvnw clean verify
+
+      # 4. JAR fájl másolása a távoli szerverre SCP-vel
+      - name: Deploy to Server
+        uses: appleboy/ssh-action@v0.1.1
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            # Az alkalmazás futtatása
+            java -jar /path/to/deploy/examapp.jar
