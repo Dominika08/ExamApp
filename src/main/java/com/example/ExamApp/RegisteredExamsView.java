@@ -43,7 +43,7 @@ public class RegisteredExamsView extends VerticalLayout {
         add(backToHomeButton); // A "Vissza" gombot csak egyszer adjuk hozzá
     }
 
-    private void refreshRegisteredExams() {
+    void refreshRegisteredExams() {
         examsContainer.removeAll(); // Csak a vizsgalistát töröljük és frissítjük
 
         List<String> registeredExams = examService.getRegisteredExams();
@@ -80,7 +80,7 @@ public class RegisteredExamsView extends VerticalLayout {
         return examRow;
     }
 
-    private void dropExam(String examName) {
+    void dropExam(String examName) {
         String resultMessage = examService.dropExam(examName); // Vizsga leadása
         Notification.show(resultMessage, 3000, Notification.Position.MIDDLE); // Visszajelzés
         refreshRegisteredExams(); // Vizsga lista frissítése

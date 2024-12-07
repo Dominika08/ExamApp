@@ -41,7 +41,7 @@ public class ExamListView extends VerticalLayout {
     }
 
     // Vizsgára való jelentkezés
-    private void registerForExam(String examName) {
+    protected void registerForExam(String examName) {
         String resultMessage = examService.registerForExam(examName); // Vizsga hozzáadása a szolgáltatáshoz
         Notification.show(resultMessage, 3000, Notification.Position.MIDDLE); // Visszajelzés a felhasználónak
     }
