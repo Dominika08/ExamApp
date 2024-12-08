@@ -13,6 +13,12 @@ jobs:
       # 1. Kód letöltése a GitHub repository-ból
       - name: Checkout code
         uses: actions/checkout@v3
+          # Add execute permission to mvnw
+                - name: Set execute permission for mvnw
+                run: chmod +x ./mvnw
+                  # Maven build
+                       - name: Build with Maven
+                       run: ./mvnw clean package
 
       # 2. JDK 17 beállítása a Docker image buildeléséhez (mivel Spring Boot-ot használunk)
       - name: Set up JDK 17
