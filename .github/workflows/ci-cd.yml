@@ -14,29 +14,33 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2. Add execute permission to mvnw and list file permissions
-      - name: Set execute permission for mvnw
-        run: |
-          chmod +x ./mvnw
-          ls -l ./mvnw    # List the file permissions
-
-      # 3. JDK 17 beállítása a Docker image buildeléséhez (mivel Spring Boot-ot használunk)
+      # 2. JDK 17 beállítása a Docker image buildeléséhez
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      # 4. Maven build (a JAR fájl létrehozása)
-      - name: Build with Maven
-        run: ./mvnw clean package
+      # 3. Maven telepítése (ha szükséges, de GitHub Action alapértelmezetten tartalmazza)
+      - name: Install Maven
+        run: sudo apt-get install maven
 
-      # 5. Docker image buildelése (mivel a JAR fájl létrejött a target/ mappában)
+      # 4. Set execute permission for mvnw and list file permissions
+      - name: Set execute permission for mvnw
+        run: |
+          chmod +x ./mvnw           # Set execute permission
+          ls -l ./mvnw              # List the file permissions
+
+      # 5. Maven build (a JAR fájl létrehozása)
+      - name: Build with Maven
+        run: ./mvnw clean package   # Maven használata bash nélkül
+
+      # 6. Docker image buildelése
       - name: Build Docker Image
         run: |
           docker build -t examapp .
 
-      # 6. Docker container futtatása
+      # 7. Docker container futtatása
       - name: Run Docker Container
         run: |
           docker run -d -p 8080:8080 examapp

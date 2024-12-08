@@ -1,8 +1,8 @@
-# Alapként használjuk az OpenJDK 17-et
+# Alap Docker image, ami tartalmazza az OpenJDK 17-et
 FROM openjdk:17-jdk-slim
 
-# Másoljuk be a buildelt JAR fájlt a Docker image-be
+# Másoljuk be a JAR fájlt a Docker image-be
 COPY target/examapp.jar examapp.jar
 
-# Az alkalmazás elindítása a Docker konténerben
+# Az alkalmazás indítása
 ENTRYPOINT ["java", "-jar", "examapp.jar"]
