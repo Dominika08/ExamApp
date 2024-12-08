@@ -21,15 +21,15 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      # 3. Maven telepítése (ha szükséges, de GitHub Action alapértelmezetten tartalmazza)
+      # 3. Maven telepítése (ha szükséges)
       - name: Install Maven
-        run: sudo apt-get install maven
+        run: sudo apt-get install -y maven  # Telepíti a Maven-t, ha még nincs telepítve
 
       # 4. Set execute permission for mvnw and list file permissions
       - name: Set execute permission for mvnw
         run: |
           chmod +x ./mvnw           # Set execute permission
-          ls -l ./mvnw              # List the file permissions
+          ls -l ./mvnw              # List the file permissions to ensure it's executable
 
       # 5. Maven build (a JAR fájl létrehozása)
       - name: Build with Maven
@@ -38,9 +38,9 @@ jobs:
       # 6. Docker image buildelése
       - name: Build Docker Image
         run: |
-          docker build -t examapp .
+          docker build -t examapp .   # Docker image építése a jelenlegi könyvtárban
 
       # 7. Docker container futtatása
       - name: Run Docker Container
         run: |
-          docker run -d -p 8080:8080 examapp
+          docker run -d -p 8080:8080 examapp   # Docker konténer elindítása a 8080 porton
